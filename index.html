@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spin the Wheel</title>
+    <title>Bee Race</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Bee Team Spin the Wheel</h1>
-    <div id="wheel">
-        <button id="spinButton">Spin the Wheel!</button>
+    <img src="https://play-lh.googleusercontent.com/-jCY-l3RicXFIAJCfNNeJmuRiebUbZNSyYfk3jUYqq1n6mMoqNSM6dJjIOuHs8HjbA" alt="BBC iPlayer Text" id="topImage">
+    <h1>Bee Team Bee Race</h1>
+    <button id="startButton">Start Race!</button>
+    <div id="raceTrack">
+        <div id="beeToggles"></div>
+        <div id="bees-container"></div>
+        <div id="finishLine"></div> <!-- Finish Line -->
         <p id="result"></p>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,25 +1,98 @@
 body {
     text-align: center;
     font-family: Arial, sans-serif;
-}
-
-#wheel {
-    margin-top: 20px;
-}
-
-button {
-    background-color: #4CAF50;
+    overflow: hidden;
+    background-color: black;
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
 }
 
-p {
-    margin-top: 20px;
-    font-size: 20px;
+h1 {
+    font-size: 24px;
+    color: white;
+}
+
+#startButton {
+    display: block;
+    margin: 20px auto;
+}
+
+#raceTrack {
+    display: flex;
+}
+
+#beeToggles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 20px;
+    padding-left: 20px ;
+}
+
+.bee-container {
+    position: relative;
+}
+
+.toggle-container {
+    margin-bottom: 30px;
+}
+
+.bee {
+    width: 40px;
+    height: 40px;
+    background-image: url('bee.png');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 5px 0;
+    position: absolute;
+    left: 0;
+}
+
+.name-label {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.race-started .bee {
+    animation-duration: var(--race-time)
+}
+
+.bee-toggle {
+    margin-left: 10px;
+}
+
+@keyframes beeRace {
+    from { transform: translateX(0); }
+    to { transform: translateX(100vw); }
+}
+
+#finishLine {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: red;
+    z-index: 10;
+}
+
+
+#center-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    text-align: center;
+    z-index: 1000;
+}
+
+#topImage {
+    height: 100px;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
 }
