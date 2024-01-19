@@ -1,46 +1,53 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const allBees = ["Ian", "Barry", "Martin", "Ben", "Fared", "Peter", "Aaron", "Alice", "Ryan", "Laura", "Karen", "Ollie"];
-    shuffleArray(allBees);
-    const beeToggles = document.getElementById("beeToggles");
-    const beeTrack = document.getElementById("bees-container");
-    const startButton = document.getElementById("startButton");
-    let winnerAnnounced = false;
+    const firestore = firebase.firestore();
+    const beesCollection = firestore.collection('bees');
+    // const allBees = ["Ian", "Barry", "Martin", "Ben", "Fared", "Peter", "Aaron", "Alice", "Ryan", "Karen", "Ollie"];
+    beesCollection.get().then((querySnapshot) => {
+        const allBees = [];
+        querySnapshot.forEach((doc) => {
+            allBees.push(doc.data().name);
+        });
+        shuffleArray(allBees);
+        const beeToggles = document.getElementById("beeToggles");
+        const beeTrack = document.getElementById("bees-container");
+        const startButton = document.getElementById("startButton");
+        let winnerAnnounced = false;
 
-    // Create toggles for each bee
-    allBees.forEach(name => {
-        const toggleContainer = document.createElement("div");
-        toggleContainer.className = "toggle-container";
+        // Create toggles for each bee
+        allBees.forEach(name => {
+            const toggleContainer = document.createElement("div");
+            toggleContainer.className = "toggle-container";
 
-        const toggleLabel = document.createElement("label");
-        toggleLabel.innerText = name;
-        toggleLabel.htmlFor = "toggle-" + name;
+            const toggleLabel = document.createElement("label");
+            toggleLabel.innerText = name;
+            toggleLabel.htmlFor = "toggle-" + name;
 
-        const toggleInput = document.createElement("input");
-        toggleInput.type = "checkbox";
-        toggleInput.id = "toggle-" + name;
-        toggleInput.className = "bee-toggle";
-        toggleInput.checked = true;
+            const toggleInput = document.createElement("input");
+            toggleInput.type = "checkbox";
+            toggleInput.id = "toggle-" + name;
+            toggleInput.className = "bee-toggle";
+            toggleInput.checked = true;
 
-        toggleContainer.appendChild(toggleLabel);
-        toggleContainer.appendChild(toggleInput);
-        beeToggles.appendChild(toggleContainer);
-    });
+            toggleContainer.appendChild(toggleLabel);
+            toggleContainer.appendChild(toggleInput);
+            beeToggles.appendChild(toggleContainer);
+        });
 
-    startButton.addEventListener("click", function() {
-        console.log("Start button clicked");
-        beeTrack.innerHTML = '';
-        displayCenterMessage("3", true);
+        startButton.addEventListener("click", function() {
+            console.log("Start button clicked");
+            beeTrack.innerHTML = '';
+            displayCenterMessage("3", true);
 
-        var countdownValue = 2;
-        var countdownInterval = setInterval(function() {
-            displayCenterMessage(String(countdownValue), true);
-            if (countdownValue <= 0) {
-                clearInterval(countdownInterval);
-                startRace();
-            }
-            countdownValue--;
-        }, 1000);
-    });
+            var countdownValue = 2;
+            var countdownInterval = setInterval(function() {
+                displayCenterMessage(String(countdownValue), true);
+                if (countdownValue <= 0) {
+                    clearInterval(countdownInterval);
+                    startRace();
+                }
+                countdownValue--;
+            }, 1000);
+        });
 
     function startRace() {
         let topPosition = 0;
@@ -73,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function animateBee(beeContainer, name) {
-        let duration = Math.random() * 50 + 10;
+        let duration = Math.random() * 50 + 5;
         let tween = gsap.to(beeContainer, {
             duration: duration,
             ease: "none",
@@ -97,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         setInterval(function() {
             if (Math.random() < 0.5) {
-                duration = Math.random() * 50 + 5;
+                duration = Math.random() * 20 + 3;
                 tween.duration(duration);
             }
         }, 300);
@@ -132,6 +139,8 @@ document.addEventListener("DOMContentLoaded", function() {
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
+    
+    });
 });
 
 

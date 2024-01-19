@@ -14,6 +14,13 @@ h1 {
 #startButton {
     display: block;
     margin: 20px auto;
+    padding: 20px 40px;
+    font-size: 24px;
+    background-color: white;
+    color: #FF3399; 
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 #raceTrack {
