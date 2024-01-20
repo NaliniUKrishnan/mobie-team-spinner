@@ -10,12 +10,15 @@ h1 {
     font-size: 24px;
     color: white;
 }
-
-#startButton {
-    display: block;
+.button-container {
+    text-align: center;
     margin: 20px auto;
-    padding: 20px 40px;
-    font-size: 24px;
+}
+
+.button-container button {
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 16px;
     background-color: white;
     color: #FF3399; 
     border: none;
@@ -27,20 +30,8 @@ h1 {
     display: flex;
 }
 
-#beeToggles {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-right: 20px;
-    padding-left: 20px ;
-}
-
 .bee-container {
     position: relative;
-}
-
-.toggle-container {
-    margin-bottom: 30px;
 }
 
 .bee {
@@ -63,12 +54,186 @@ h1 {
     margin-bottom: 5px;
 }
 
+.enabled-bees-list {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-40%);
+    padding: 30px;
+}
+
+.enabled-bee-item {
+    margin-bottom: 30px;
+}
+
 .race-started .bee {
     animation-duration: var(--race-time)
 }
 
-.bee-toggle {
-    margin-left: 10px;
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.5s;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+
+.modal-title {
+    font-size: 18px;
+    margin-left: 30px;
+}
+
+.modal-content {
+    background-image: url('https://i.imgur.com/PfKWEDU.png');
+    background-size: cover;
+    background-position: center;
+    margin: 10% auto;
+    padding: 120px 20px 20px 20px; 
+    border: none;
+    width: 350px;
+    height: 700px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    animation: slideDown 0.5s;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    font-size: 14px;
+}
+
+.bees-list-container {
+    overflow-y: auto;
+    margin-top: 20px;
+    flex-grow: 1;
+}
+
+.bee-list-item-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    transition: background-color 0.3s;
+}
+
+.bee-list-item-container:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.bee-content-container {
+    display: flex;
+    align-items: center;
+}
+
+.bee-image {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.bees-list {
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 10px 40px;
+}
+
+.bee-list-item {
+    padding: 5px;
+}
+
+.last-winners-display {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    text-align: left;
+    padding: 20px;
+    font-size: 14px;
+    color: gray;
+}
+
+.last-winners-title {
+    font-weight: bold;
+    display: block; 
+    margin-bottom: 10px;
+}
+
+.delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+    padding-top: 2px;
+}
+
+.ios-checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px; 
+    height: 20px; 
+    background-color: #ccc; 
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.ios-checkbox:checked {
+    background-color: #007AFF;
+}
+
+.ios-checkbox::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.ios-checkbox:checked::before {
+    transform: translateX(20px); 
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 @keyframes beeRace {
@@ -76,16 +241,73 @@ h1 {
     to { transform: translateX(100vw); }
 }
 
+#addBeeForm {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+    max-width: 80%;
+}
+
+#newBeeName {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-appearance: none;
+    outline: none; 
+}
+
+#newBeeName:focus {
+    border-color: #007AFF; 
+}
+
+#addBeeButton {
+    background-color: white;
+    color: #007AFF; 
+    border: none;
+}
+
+#enableAllBeesButton {
+    background-color: white;
+    color: #007AFF; 
+    border: none;
+}
+
 #finishLine {
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
-    width: 5px;
-    background-color: red;
+    width: 3px;
+    background-color: #FF3399;
     z-index: 10;
 }
 
+#appIconContainer {
+    position: absolute;
+    left: 100px;
+    top: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid white;
+    padding: 10px; 
+    border-radius: 10px; 
+}
+
+#iphoneIcon {
+    height: 30px;
+    width: auto;
+}
+
+#appText {
+    margin-left: 10px; 
+    color: white;
+    font-size: 20px;
+}
 
 #center-message {
     position: fixed;
